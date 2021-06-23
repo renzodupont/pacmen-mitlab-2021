@@ -41,11 +41,38 @@ body {
   height: calc(100vh - 30px);
 }
 
-.inner-border {
+.inner-border-1 {
   position: absolute;
-  margin-top: calc(50vh - 200px);
-  margin-left: calc(50vw - 300px);
-  width: 600px;
-  height: 400px;
+  margin-top: calc(25vh - 25px);
+  margin-left: calc(25vw - 25px);
+  width: 200px;
+  height: 130px;
+  background: #262c3d;
+}
+
+.inner-border-2 {
+  position: absolute;
+  margin-top: calc(25vh - 25px);
+  margin-left: calc(50vw + 50px);
+  width: 200px;
+  height: 130px;
+  background: #262c3d;
+}
+
+.inner-border-3 {
+  position: absolute;
+  margin-top: calc(50vh + 60px);
+  margin-left: calc(25vw - 25px);
+  width: 200px;
+  height: 130px;
+  background: #262c3d;
+}
+
+.inner-border-4 {
+  position: absolute;
+  margin-top: calc(50vh + 60px);
+  margin-left: calc(50vw + 50px);
+  width: 200px;
+  height: 130px;
   background: #262c3d;
 }

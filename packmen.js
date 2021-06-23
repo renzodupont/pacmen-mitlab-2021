@@ -12,12 +12,12 @@ let availableDirections = {
 
 const pacArrayRight = ["./images/PacMan1.png", "./images/PacMan2.png"];
 const pacArrayLeft = ["./images/PacMan3.png", "./images/PacMan4.png"];
-const innerBorder = document.querySelector(".inner-border");
+const innerBorders = document.querySelectorAll(".inner-border");
 let moveBy = 15;
 let imageArrayIndex = 0; // If mouth is opened or closed - 0 is closed, 1 is opened
 
 // Function to move the Pac Man image to a new position base on the direction provided
-function move(direction) {
+const move = (direction) => {
   let img = document.getElementById("pacman");
   let positionX = pacManPosition.positionX;
   let positionY = pacManPosition.positionY;
@@ -43,33 +43,50 @@ function move(direction) {
       10
     );
   }
-}
+};
 
 // Checks if the position we want to move the Pac Mac is inside the bounderies
-function canMoveThere(positionX, positionY, imgWidth) {
+const canMoveThere = (positionX, positionY, imgWidth) => {
   return !(
+    checkEdgeCollision(positionX, positionY, imgWidth) ||
+    checkBordersCollision(positionX, positionY, imgWidth)
+  );
+};
+
+const checkEdgeCollision = (positionX, positionY, imgWidth) => {
+  return (
     positionX < 11 ||
     positionY < 11 ||
     positionY + imgWidth > window.innerHeight - 11 ||
-    positionX + imgWidth > window.innerWidth - 11 ||
-    (positionX + imgWidth > innerBorder.offsetLeft &&
+    positionX + imgWidth > window.innerWidth - 11
+  );
+};
+
+const checkBordersCollision = (positionX, positionY, imgWidth) => {
+  for (let innerBorder of innerBorders) {
+    if (
+      positionX + imgWidth > innerBorder.offsetLeft &&
       positionX < innerBorder.offsetLeft + innerBorder.offsetWidth &&
       positionY + imgWidth > innerBorder.offsetTop &&
-      positionY < innerBorder.offsetTop + innerBorder.offsetHeight)
-  );
-}
+      positionY < innerBorder.offsetTop + innerBorder.offsetHeight
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
 
 // Rotates the image on new keydown events
-function rotateImage(moveToDegrees) {
+const rotateImage = (moveToDegrees) => {
   if (pacManPosition.degrees !== moveToDegrees) {
     let img = document.getElementById("pacman");
     img.style.transform = "rotate(" + moveToDegrees + "deg)";
     pacManPosition.degrees = moveToDegrees;
   }
-}
+};
 
 // This function catches the key code and moves the image accordingly
-function movePacMan(e) {
+const movePacMan = (e) => {
   switch (e.keyCode) {
     case 37:
       move(availableDirections.left);
@@ -90,7 +107,7 @@ function movePacMan(e) {
     default:
       break;
   }
-}
+};
 
 // Keydown event initialize
 window.onload = function () {
